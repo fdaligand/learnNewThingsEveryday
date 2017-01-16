@@ -2,7 +2,7 @@
 List of things learned day by day 
 
 
-## Code
+# Code
 ## Design Pattern 
 ### Law of Demeter (LoD)
 >LoD is a specific case of loose coupling.
@@ -14,17 +14,33 @@ List of things learned day by day
 
  * date : 03/01/2017
  * media : Wikipédia
- * link  
+  
 ### Python 3
 #### Core 
- * sum-up : New Dictionaries implementation in Python 3.6
+>sum-up : New Dictionaries implementation in Python 3.6
+ 
  * date : 30/12/2016
  * media : Youtube
  * author : Raymond Hettinger
  * link : https://youtu.be/p33CVV29OG8
 
-## To be investigated 
+#### To be investigated 
 * Code smell
 * aspect oriented programming
 * Low coupling principle
+
+## Tools
+
+## Source control
+
+### Git 
+#### Git stash 
+>Stash the change in a dirty working directory away
+
+* date : 10/01/2017
+* meida : Git official doc 
+* [link](https://git-scm.com/docs/git-stash)
+
+#### To be investigated 
+* Git fsck 
  
