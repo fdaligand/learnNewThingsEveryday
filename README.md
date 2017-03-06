@@ -14,7 +14,25 @@ List of things learned day by day
 
  * date : 03/01/2017
  * media : Wikipédia
-  
+
+### Command pattern 
+>Behavioral design pattern in which an object is used to encapsulate all information to perform an action or trigger an event at a later time.
+
+ * date : 27/01/2017
+ * media : Wikipédia
+ * link : https://en.wikipedia.org/wiki/Command_pattern
+
+## Head First Design Pattern 
+### Design principle
+ * Identify the aspects of your application that vary and separate them from what stays the same.
+ * Program to an interface, not an implementation
+ * Favor composition over inheritance
+
+### Design Pattern
+#### STRATEGY
+>The Stategy pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. Strategy lets the algorithm vary independentely from clients tahat us it.
+
+
 ### Python 3
 #### Core 
 >sum-up : New Dictionaries implementation in Python 3.6
@@ -26,9 +44,20 @@ List of things learned day by day
 
 #### To be investigated 
 * Code smell
+* Python abstract class
 * aspect oriented programming
 * Low coupling principle
 
+## Web 
+
+### Internal browser 
+#### WebAssembly (wasm)
+>WebAssembly is an emerging standard whose goal is to define a safe, portable, size- and load-time efficient binary compiler target which offers near-native performance—a virtual CPU for the Web.
+
+* date 10/02/2017
+* media : hachs mozilla 
+* link 
+    - [A WebAssembly Milestone: Experimental Support in Multiple Browsers](https://hacks.mozilla.org/2016/03/a-webassembly-milestone/)
 ## Tools
 
 ## Source control
@@ -38,9 +67,15 @@ List of things learned day by day
 >Stash the change in a dirty working directory away
 
 * date : 10/01/2017
-* meida : Git official doc 
+* media : Git official doc 
 * [link](https://git-scm.com/docs/git-stash)
 
+#### Git tutorial 
+>Learn interactively with web browser how to branch/merge/rebase/cherry-pick....
+
+ * date : 19/01/2017
+ * media : GitHub Page
+ *  
 #### To be investigated 
 * Git fsck 
  
