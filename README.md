@@ -79,3 +79,10 @@ List of things learned day by day
 #### To be investigated 
 * Git fsck 
  
+## Unix 
+
+### Grep
+* find file in directory which not include specific pattern 
+    - `grep -Lr "string to find" *`
+* check multiple extension 
+    - ` grep -E '.h|.cpp'` or `grep -e '.h\|.cpp'`
