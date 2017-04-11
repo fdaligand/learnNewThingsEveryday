@@ -25,8 +25,6 @@ class FeatureBroker:
             raise KeyError("Unknown feature named %r" % feature)
         return provider()
 
-features = FeatureBroker(True)
-
 ######################################################################
 ## 
 ## Representation of Required Features and Feature Assertions
@@ -146,6 +144,9 @@ def GetCurrentUser():
 # and creates an instance of Bar to work with
 #
 if __name__ == '__main__':
+
+    features = FeatureBroker(True)
+    
     print('\n*** IoC Demo ***')
     features.Provide('AppTitle', 'Inversion of Control ...\n\n... The Python Way')
     features.Provide('CurrentUser', GetCurrentUser)

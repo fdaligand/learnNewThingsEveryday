@@ -9,7 +9,10 @@
 #### Constructor injection 
 #### Setter injection 
 
+### 
+
 
 
 ### Ressources 
  * [Dependency Injection The Python Way (Python recipe) ](http://code.activestate.com/recipes/413268/)
+ * [Inversion of Control Containers and the Dependency Injection pattern](https://www.martinfowler.com/articles/injection.html)
