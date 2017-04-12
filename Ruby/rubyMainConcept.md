@@ -1,8 +1,4 @@
-#Ruby most important fact 
-
-## Abort
-Terminate execution immediately, effectively by calling `Kernel.exit(1)`.
-
+# Ruby most important fact 
 ## Object 
 To find tyep of and object, ask for the `class` attribute of this object.
 ```ruby
@@ -11,16 +7,7 @@ To find tyep of and object, ask for the `class` attribute of this object.
 [3] pry(main)> x.class
 => String
 ```
-## String 
-Use `include?` to find substring in string.
-```ruby
-[18] pry(main)> x = "hello world"
-=> "hello world"
-[19] pry(main)> x.include? "world"
-=> true
-[20] pry(main)> x.include? "word"
-=> false
-```
+
 ## Array 
 
  * Array.push() : append to the end 
@@ -28,7 +15,7 @@ Use `include?` to find substring in string.
  * Array.unshift() : append to start
  * Array.shift() : remove to start and return value
 
-append to array : <<
+append to array : `<<`
 
 ```ruby
 array = [:peanut, :butter, :and, :jelly]
@@ -43,14 +30,14 @@ last_name = [""]
 ```
 `first_name, = ["John", "Smith"] => first_name = "John"`
 
-### test empty array 
+#### test empty array 
 ```ruby 
     x = []
     x.any? => return false
     x.empty? => return true
 ```
 
-### find element in array 
+#### find element in array 
 ```ruby
 x = { :a => 2,:b => 2, c:= 3}
 x.all? {|x| x < 3} => return false
@@ -67,7 +54,7 @@ x.any? {|x| x < 3} => return true
 
 ## Hash
 
-* Hash.new("toto") : "toto" will be used as default value 
+* `Hash.new("toto")` => "toto" will be used as default value 
 ```ruby
 irb(main):001:0> x = Hash.new("toto")
 => {}
@@ -116,15 +103,95 @@ b = "a string"
 assert_equal true, a           == b
 assert_equal false, a.object_id == b.object_id
 ```
-## Ruby install. 
+Use `include?` to find substring in string.
+```ruby
+[18] pry(main)> x = "hello world"
+=> "hello world"
+[19] pry(main)> x.include? "world"
+=> true
+[20] pry(main)> x.include? "word"
+=> false
+```
+
+## Symbols
+```ruby
+symbol = :ruby
+symbol.is_a?(Symbol) # true
+```
+
+* Counter to `string`, to `symbol` decalaration with the same value have the same `object_id`.
+* Variable name starting with a capital letter become a constant. Constant can be assigned only once and raise warning if new assignement is tried. Ruby automatically convert constant to symbols
+```ruby
+RubyConstant = " declare a string as constant"
+Symbol.all_symbols.include?(:RubyConstant)
+=> true
+```
+* To convert `String` to `Symbols`, use `String.to_sym`. **Space are tolered to create symbols**
+* `Symbols` is not equal to `String`, and do not have its method
+* `Symbols` can't be concatenated  
+
+## Regexp
+
+```ruby
+=>"toto tata titi"[/tata/]
+=> "tata"
+=> "toto tata titi"[/tete/]
+=> nil
+```
+* `?` : 0 or 1
+* `+` : 1 or more
+* `*` : zero or more
+* the left most match wins
+* use `/\d/` to search for a number (`[0-9]`)
+* use `\s` to serach for whitespace charactere (`[ \t\r\n\f]`)
+* use `\w` to search for a word (`[a-zA-Z0-9_]`)
+* use `.` to search for non-newline character 
+* use `/[^]/` to make a negated search
+* use `\D` to search for non-digit character (`[^0-9]`)
+* use `\S` to search for non-whitespace character (`[^ \t\r\n\f]`)
+* use `\W` to search for a word (`[^a-zA-Z0-9_]`)
+* `\A` - Matches beginning of string.
+* `\z` - Matches end of string.
+* `^` - Matches beginning of line 
+```ruby
+    assert_equal "2", "num 42\n2 lines"[/^\d+/]
+```
+* `$` - Matches end of line
+```ruby
+    assert_equal "42", "2 lines\nnum 42"[/\d+$/]
+```
+* `\b` - Matches word boundaries when outside brackets; backspace (0x08) when inside brackets
+* use bracket `()` to group contents
+```ruby
+    assert_equal "hahaha", "ahahaha"[/(ha)+/]
+```
+* also capture matched by content by specifying order or with prefix `$`
+```ruby
+    assert_equal "Gray", "Gray, James"[/(\w+), (\w+)/, 1]
+    assert_equal "James", "Gray, James"[/(\w+), (\w+)/, 2]
+    assert_equal "Gray, James", "Name:  Gray, James"[/(\w+), (\w+)/]
+    assert_equal "Gray", $1
+    assert_equal "James", $2
+```
+* Vertical pipe `|` means or
+* use `scan(/pattern/)` to find all occurence in a string. This method return an array.
+* use `sub` to replace first occurence of a pattern or `gsub` to repalce all occurence.
+```ruby
+    assert_equal "one t-three", "one two-three".sub(/(t\w*)/) { $1[0, 1] }
+    assert_equal "one t-t", "one two-three".gsub(/(t\w*)/) { $1[0, 1] }
+```
 ---
+---
+---
+
+## Ruby install. 
 ### gem 
 package manager to easely install RubyGems ( as npm in javascript or pip in python)
 
 ### [Bundle](http://bundler.io/)
+
 >Bundler provides a consistent environment for Ruby projects by tracking and installing the exact gems and versions that are needed. 
 
----
 ### Issue on SSL connection 
 Sometimes error occurs on ssl connection 
 ```
@@ -139,9 +206,9 @@ server certificate B: certificate verify failed
 An error occurred while installing concurrent-ruby (1.0.2), and                    
 Bundler cannot continue.                                                           
 Make sure that `gem install concurrent-ruby -v '1.0.2'` succeeds before            
-bundling.                                                                          
-
+bundling.                                                                      
 ```
-
 #### Workaround 
  Udpate (or add ) `sll_verify_mode` to `0` in the `.gemrc` of your home path. 
+## Abort
+Terminate execution immediately, effectively by calling `Kernel.exit(1)`.
