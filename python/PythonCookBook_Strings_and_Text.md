@@ -29,29 +29,28 @@
 >>>
 ```
 
-### Matching tesxt at the start or end of a string
+### Matching text at the start or end of a string
 
 > Use `str.startswith()` or `str.endswith()` function. For multiple choice, provide a `tuple()` (**mandatory**).
 
 
-```
+```python
 >>> import os
 >>> filenames = os.listdir('.')
 >>> filenames
-[ 'Makefile', 'foo.c', 'bar.py', 'spam.c', 'spam.h' ]
+#[ 'Makefile', 'foo.c', 'bar.py', 'spam.c', 'spam.h' ]
 >>> [name for name in filenames if name.endswith(('.c', '.h')) ]
-['foo.c', 'spam.c', 'spam.h'
+#['foo.c', 'spam.c', 'spam.h'
 >>> any(name.endswith('.py') for name in filenames)
 True
->>>
 ```
 
-### Matching strings usig shell wildcard patterns
+### Matching strings using shell wildcard patterns
 
-> the `fnmatch` module provide to function `fnmatch()` and `fnmatchcase()`.
+> the `fnmatch` module provide two function `fnmatch()` and `fnmatchcase()`.
 > `fnmatch()` is case sensitive. 
- 
- ```python
+
+```python
 >>> from fnmatch import fnmatch, fnmatchcase
 >>> fnmatch('foo.txt', '*.txt')
 True
@@ -62,7 +61,7 @@ True
 >>> names = ['Dat1.csv', 'Dat2.csv', 'config.ini', 'foo.py']
 >>> [name for name in names if fnmatch(name, 'Dat*.csv')]
 ['Dat1.csv', 'Dat2.csv']
- ```
+```
 
 > These function can be use for data processing.
 
@@ -133,7 +132,7 @@ addresses = [
 >>>
 ```
 
-> Use `re.sub()` for more sofisticated pattern. Backslashed digit refer to capture group numbers in teh pattern. As above, use `re.compile` if you use same pattern multiple time. 
+> Use `re.sub()` for more sofisticated pattern. Backslashed digit refer to capture group numbers in the pattern. As above, use `re.compile` if you use same pattern multiple time. 
 
 ```python
 >>> text = 'Today is 11/27/2012. PyCon starts 3/13/2013.'
@@ -211,3 +210,179 @@ text2 = '''/* this is a
 [' this is a\n multiline comment ']
 >>>
 ```
+
+### Normalizing Unicode Text to a Standard Representation
+
+> The caractère `ñ` can be coded directly with unicode charactere `\u00F1` or can be a `n`+` ̃ ` (`\u0303`). If you compare two string with two different unicode, result will be false. We should normalize the text before string comparison. Use module `unicodedata` to do that. You have the choice between two type of normalization, `NFC`(characteres fully composed) or `NFD` (combining charactere). Python also support `NFKC` and `NFKD`.
+
+### Unicode in regular expression 
+```python
+>>> import re
+>>> num = re.compile('\d+')
+>>> # ASCII digits
+>>> num.match('123')
+<_sre.SRE_Match object at 0x1007d9ed0>
+>>> # Arabic digits
+>>> num.match('\u0661\u0662\u0663')
+<_sre.SRE_Match object at 0x101234030>
+```
+
+### Stripping Unwanted Char
+> Use the `strip()` method to remove character from begiining or end of a string (use `lstrip()` or `rstrip()` for specific size. Argument of `strip()` is not a pattern but a list of character to remove. 
+
+```python
+>>> '   spacious   '.strip()
+'spacious'
+>>> 'www.example.com'.strip('cmowz.')
+'example'
+```
+
+**Use generators to sanitize text from file**.
+It’s efficient because it doesn’t actually read the data into any kind of temporary list first. It just creates an iterator where all of the lines produced have the stripping operation applied to them.
+```python
+with open(filename) as f:
+    lines = (line.strip() for line in f)
+    for line in
+        ...
+```
+
+### Aligning Text String
+> Use `ljust()`, `rjust()` and `center()`. These methods accept argument of **one character long**
+
+```python
+>>> text.rjust(20,'=')
+'=========Hello World'
+>>> text.center(20,'*')
+'****Hello World*****'
+>>>
+```
+
+> You can also use `format()` to align text.
+
+```python
+>>> format(text, '>20')
+' Hello World'
+>>> format(text, '<20')
+'Hello World '
+>>> format(text, '^20')
+' Hello World '
+
+# With file caracter
+>>> format(text, '=>20s')
+'=========Hello World'
+>>> format(text, '*^20s')
+'****Hello World*****'
+
+# Multiple values
+
+>>> '{:>10s} {:>10s}'.format('Hello', 'World')
+' Hello World'
+
+```
+
+> `format()` is not strings specific
+
+```python
+>>> x = 1.2345
+>>> format(x, '>10')
+' 1.2345'
+>>> format(x, '^10.2f')
+' 1.23 '
+```
+
+### Combining and concatenating strings
+> You can use `join()`, or `+` operator for simple strings. The most important thing to know is that using the + operator to join a lot of strings together is grossly inefficient due to the memory copies and garbage collection that occurs. 
+
+
+### Interpolating Variables in Strings
+> You can use `format()`, `format_map()` combined with `vars()`. Nevertheless, these methods don't deal gracefully with missing values. A way to avoid that is to declare a `dict` class with `__missing__()` methods.
+
+```python
+>>> s = '{name} has {n} messages.'
+>>> s.format(name='Guido',n=37)
+'Guido has 37 messages.'
+
+# with format-map() and vars()
+>>> name = 'Guido'
+>>> n = 37
+>>> s.format_map(vars())
+'Guido has 37 messages.'
+
+# Works with instance
+>>> class Info:
+... def __init__(self, name, n):
+... self.name = name
+... self.n = n
+...
+>>> a = Info('Guido',37)
+>>> s.format_map(vars(a))
+'Guido has 37 messages.'
+>>>
+
+# raise error on missing values 
+>>> s.format(name='Guido')
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+KeyError: 'n'
+>>>
+
+# create a class(dict) with __missing__ method to solve issue
+class safesub(dict):
+    def __missing__(self, key):
+        return '{' + key + '}'
+
+>>> del n # Make sure n is undefined
+>>> s.format_map(safesub(vars()))
+'Guido has {n} messages.'
+>>>
+
+# for frequent call to this kinf of algo 
+import sys
+def sub(text):
+    return text.format_map(safesub(sys._getframe(1).f_locals))
+>>> name = 'Guido'
+>>> n = 37
+>>> print(sub('Hello {name}'))
+Hello Guido
+>>> print(sub('You have {n} messages.'))
+You have 37 messages.
+>>> print(sub('Your favorite color is {color}'))
+Your favorite color is {color}
+
+```
+
+### Handling HTML and XML Entities in Text
+> use module `html` and its method `escape()` for escaping HTML charactere
+
+```python
+>>> s = 'Elements are written as "<tag>text</tag>".'
+>>> import html
+>>> print(s)
+"<tag>text</tag>"
+>>> print(html.escape(s))
+"&quot;&lt;tag&gt;text&lt;/tag&gt;&quot"
+# Disable escaping of quotes
+>>> print(html.escape(s, quote=False))
+"&lt;tag&gt;text&lt;/tag&gt"
+```
+
+> to process text in other direction, use the proper parser to fdo that 
+
+```python
+>>> s = 'Spicy &quot;Jalape&#241;o&quot.'
+>>> from html.parser import HTMLParser
+>>> p = HTMLParser()
+>>> p.unescape(s)
+'Spicy "Jalapeño".'
+>>>
+>>> t = 'The prompt is &gt;&gt;&gt;'
+>>> from xml.sax.saxutils import unescape
+>>> unescape(t)
+'The prompt is >>>'
+```
+
+### Tokenizing text
+> Very specific use. See chapter 2.18, 2.19. See also [PyParsing](http://pyparsing.wikispaces.com/) or [PLY](http://www.dabeaz.com/ply/ply.html) for more details. 
+
+
+
