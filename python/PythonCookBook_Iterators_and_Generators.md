@@ -370,3 +370,28 @@ ValueError: not enough values to unpack (expected 3, got 2)
 {1: 3, 2: 4}
 ```
 
+## Iterating on Items in separate Containers
+
+> Use `itertools.chain()`. Is more elegant than two different loop. It is also more efficient that adding to iterable (regarding memory) and don't raise error in different type.
+ 
+
+```python
+
+# chaining different object 
+>>> a = [1,2]
+>>> b = (3,4)
+>>> for n in a + b : print n
+...
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate list (not "tuple") to list
+>>> from itertools import chain      
+>>> for n in chain(a,b) : print(n)   
+...                                  
+1                                    
+2                                    
+3                                    
+4                                    
+```
+
+## Creating Data Processing Pipelines
