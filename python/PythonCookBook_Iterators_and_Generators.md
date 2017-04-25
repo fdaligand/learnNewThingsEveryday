@@ -395,3 +395,71 @@ TypeError: can only concatenate list (not "tuple") to list
 ```
 
 ## Creating Data Processing Pipelines
+
+> Generators function are good way to implement processing pipeline. 
+> A complete descrition and implementation of this mechanism is describe in recipe 4.113 of the book.
+> See also [Generator Tricks for Systems Programmers](http://www.dabeaz.com/generators/) for further details.**To be read**
+
+## Flattening a nested sequence
+
+> Use recursive generators with a `yield from`.
+> `yield from` is used to emit all of its values as a kind of subroutine. 
+
+```python
+from collections import Iterable
+def flatten(items, ignore_types=(str, bytes)):
+    for x in items:
+        if isinstance(x, Iterable) and not isinstance(x, ignore_types):
+            yield from flatten(x)
+        else:
+            yield x
+
+items = [1, 2, [3, 4, [5, 6], 7], 8]
+# Produces 1 2 3 4 5 6 7 8
+for x in flatten(items):
+    print(x)
+```
+
+> `ignore_type` is use to prevent string and byte from being interpreted as iterables. 
+
+## Iterating in sorted order over merged sorted iterable
+
+> Use `heapq.merge()`. It is important to emphasize that `heapq.merge()` requires that all input sequences albready be sorted.
+
+```python
+>>> import heapq
+>>> a = [1, 4, 7, 10]
+>>> b = [2, 5, 6, 11]
+>>> for c in heapq.merge(a, b):
+... print(c)
+...
+1
+2
+4
+5
+6
+7
+10
+11
+```
+
+## Replacing infite while loops with an iterator 
+
+> the following peace of code are the same 
+
+```python
+CHUNKSIZE = 8192
+    def reader(s):
+        while True:
+            data = s.recv(CHUNKSIZE)
+            if data == b'':
+                break
+            process_data(data)
+# same code with iter method
+def reader(s):
+    for chunk in iter(lambda: s.recv(CHUNKSIZE), b''):
+        process_data(data)
+```
+
+> The unknown feature of `iter()` function is that it optionally accepts a zero argument callable and a sentinel. It create an iterator that repeatedly calls the supplied callable over and over again until it returns the value given as a sentinel.
+
