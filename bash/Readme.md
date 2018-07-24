@@ -36,9 +36,9 @@ The exit status of a pipeline is the exit status of the last command in the pipe
 ### List of command
 
 `&`: shell execute the command asynchronously in a subshell (in background). the standard input is redirected to `/dev/null`
-`;`: execute command sequentially, wait for each command to terminate.
-`command1 && command2`:command2 is executed if, and only if, command1 returns an exit status of zero.
-`command1 || command2`: command2 is executed if, and only if, command1 returns a non-zero exit status.
+`;`: execute command sequentially, wait for each command to terminate.  
+`command1 && command2`:command2 is executed if, and only if, command1 returns an exit status of zero.  
+`command1 || command2`: command2 is executed if, and only if, command1 returns a non-zero exit status.  
 
 ### Compound commands 
 End of page 9
