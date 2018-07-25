@@ -40,5 +40,31 @@ The exit status of a pipeline is the exit status of the last command in the pipe
 `command1 && command2`:command2 is executed if, and only if, command1 returns an exit status of zero.  
 `command1 || command2`: command2 is executed if, and only if, command1 returns a non-zero exit status.  
 
-### Compound commands 
-End of page 9
+### Loopig construct 
+*until*: `until test-commands; do consequent-commands; done`  
+Execute consequent-commands as long as test-commands has an exit status
+which is not zero.
+*while*: `while test-commands; do consequent-commands; done`  
+Execute consequent-commands as long as test-commands has an exit status
+of zero.
+*for*: `for name [ [in [words ...] ] ; ] do commands; done`  
+Expand words, and execute commands once for each member in the resultant
+list, with name bound to the current member.
+
+`breack` and `contniue` can be use to control loop.
+
+### Coniditional Constructs
+*if*: `if test-commands; then
+consequent-commands;
+[elif more-test-commands; then
+more-consequents;]
+[else alternate-consequents;]
+fi`  
+*case*: `case word in [ [(] pattern [| pattern]...) command-list ;;]... esac`
+set `nocasematch` to shell option (`shopt`) to ignore case on match.  
+It’s a common idiom to use `*` as the final pattern to define the
+default case
+Each clause must be terminated with `;;`,`;&`, or `;;&`.
+`;&` :causes execution to continue with the command-list associated with the next clause
+`;;&`: causes the shell to test the patterns in the next clause, if any, and execute
+any associated command-list on a successful match
