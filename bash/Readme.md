@@ -70,3 +70,13 @@ default case
 Each clause must be terminated with `;;`,`;&`, or `;;&`.  
 `;&`: causes execution to continue with the command-list associated with the next clause.  
 `;;&`: causes the shell to test the patterns in the next clause, if any, and execute any associated command-list on a successful match.  
+
+**select**; `select name [in words ...]; do commands; done`  
+The select construct allows the easy generation of menus. 
+
+**[[...]]**: `[[ expresiion ]]`  
+Return 0 or 1 depending of evaluation of `expression`  
+Word splitting and file-name expansion are not performed.  
+`=~` can be used for regex matching. If regex is wrong, it return 2.  
+Substrings matched by parenthesized subexpressions within the regular expression are saved in the array variable `BASH_REMATCH`.  
+
