@@ -65,6 +65,25 @@ A partition is a physically contiguous section of a disk, or what appears to be 
 
 A filesystem is a method of storing/finding files on a hard disk (usually in a partition). 
 
+### The FileSystems Hierachy standard
+
+Linux systems store their important files according to a standard layout called the Filesystem Hierarchy Standard (FHS). 
+
+Multiple drives and/or partitions are mounted as directories in the single filesystem. 
+
+Removable media such as USB drives and CDs and DVDs will show up as mounted at /run/media/yourusername/disklabel for recent Linux systems, or under /media for older distributions.
+See graph of FHS for details.
+
+Many installers can do an installation completely automatically, using a configuration file to specify installation options. This file is called a Kickstart file for Red Hat-based systems, an AutoYAST profile for SUSE-based systems, and a Preseed file for Debian-based systems.
+
+
+A partition is a logical part of the disk.
+A filesystem is a method of storing/finding files on a hard disk.
+By dividing the hard disk into partitions, data can be grouped and separated as needed. When a failure or mistake occurs, only the data in the affected partition will be damaged, while the data on the other partitions will likely survive.
+The boot process has multiple steps, starting with BIOS, which triggers the boot loader to start up the Linux kernel. From there, the initramfs filesystem is invoked, which triggers the init program to complete the startup process.
+Determining the appropriate distribution to deploy requires that you match your specific system needs to the capabilities of the different distributions.
+
+X Window System is loaded as one of the final steps in the boot process.
 ## Gloasry
 
 MBR : Master Boot Record
