@@ -167,7 +167,118 @@ The /mnt directory has been used since the early days of UNIX for temporarily mo
 
 ### files 
 
-you can use use `diff` 
-to compare 3 files once use `diff3`
+you can use use `diff`   
+to compare 3 files once use `diff3`  
+`file` show you the file utility  
 
-`file` show you the file utility 
+## Backing up and compressing data
+
+`rsync` only copied file thta have changer (size od modification date).  
+```sh
+$ rsync -r project-X archive-machine:archives/project-X
+```
+**It is highly recommended that you first test your rsync command using the `--dry-run` option to ensure that it provides the results that you want.**
+
+### Compressing data 
+
+| command | Usage |
+| --- | --- |
+| gzip | The most frequently used Linux compression utility |
+| bzip2 |  Produces files significantly smaller than those produced by gzip |
+| xz | The most space-efficient compression utility used in Linux |
+| zip | Is often required to examine and decompress archives from other operating systems |
+
+#### gzip 
+
+gzip is the most often used Linux compression utility. It compresses very well and is very fast.
+
+```sh
+gzip -r plop  # Compresses all files in the plop directory, along with all files in all of the directories under plop
+gunzip foo # De-compresses foo found in the file foo.gz. Under the hood, the gunzip command is actually the same as gzip –d
+```
+
+#### bzip2
+
+Produce significant smaller files that gzip but take longer time to do its work.
+Thus, it is more likely to be used to compress larger files.  
+
+```sh
+bunzip2 *.bz2 # Decompresses all of the files with an extension of .bz2 in the current directory. Under the hood, bunzip2 is the same as calling bzip2 -d
+```
+
+#### xz 
+
+xz is the most space efficient compression utility used in Linux and is now used to store archives of the Linux kernel. Once again, it trades a slower compression speed for an even higher compression ratio.
+
+| Command | Usage |
+| --- | --- |
+| $ xz * | Compresses all of the files in the current directory and replaces each file with one with a .xz extension |
+| xz foo | Compresses the file foo into foo.xz using the default compression level (-6), and removes foo if compression succeeds |
+| xz -dk bar.xz | Decompresses bar.xz into bar and does not remove bar.xz even if decompression is successful |
+| xz -dcf a.txt b.txt.xz > abcd.txt | Decompresses a mix of compressed and uncompressed files to standard output, using a single command |
+| $ xz -d *.xz | Decompresses the files compressed using xz |
+
+#### zip 
+
+The zip program is not often used to compress files in Linux, but is often required to examine and decompress archives from other operating systems. It is only used in Linux when you get a zipped file from a Windows user. It is a legacy program.
+
+#### tar 
+
+Historically, tar stood for "tape archive" and was used to archive files to a magnetic tape. It allows you to create or extract files from an archive file, often called a tarball. At the same time, you can optionally compress while creating the archive, and decompress while extracting its contents.
+
+| $ tar xvf mydir.tar  |   Extract all the files in mydir.tar into the mydir directory |
+| $ tar zcvf mydir.tar.gz mydir |  Create the archive and compress with gzip |
+| $ tar jcvf mydir.tar.bz2 mydir | Create the archive and compress with bz2 |
+| $ tar Jcvf mydir.tar.xz mydir  | Create the archive and compress with xz |
+| $ tar xvf mydir.tar.gz  | Extract all the files in mydir.tar.gz into the mydir directory |
+
+
+### Disk to disk Copying (`dd`)
+
+The dd program is very useful for making copies of raw disk space. For example, to back up your Master Boot Record (MBR) (the first 512-byte sector on the disk that contains a table describing the partitions on that disk), you might type:
+
+```sh
+$ dd if=/dev/sda of=sda.mbr bs=512 count=1
+```
+
+**WARNING**!
+
+Typing:
+
+```
+$ dd if=/dev/sda of=/dev/sdb
+```
+
+to make a copy of one disk onto another, will delete everything that previously existed on the second disk.
+
+An exact copy of the first disk device is created on the second disk device.
+
+Do not experiment with this command as written above, as it can erase a hard disk!
+
+Exactly what the name dd stands for is an often-argued item. The words data definition is the most popular theory and has roots in early IBM history. Often, people joke that it means disk destroyer and other variants such as delete data!  
+
+
+## Conclusion 
+
+
+
+You have completed Chapter 10. Let’s summarize the key concepts covered:
+
+ * The filesystem tree starts at what is often called the root directory (or trunk, or /).
+ * The  Filesystem Hierarchy Standard (FHS) provides Linux developers and system administrators a standard directory structure for the filesystem.
+ * Partitions help to segregate files according to usage, ownership, and type.
+ * Filesystems can be mounted anywhere on the main filesystem tree at a mount point. Automatic filesystem mounting can be set up by editing /etc/fstab.
+ * NFS (Network File System) is a useful method for sharing files and data through the network systems.
+ * Filesystems like /proc are called pseudo filesystems because they exist only in memory.
+ * /root (slash-root) is the home directory for the root user.
+ * /var may be put in its own filesystem so that growth can be contained and not fatally affect the system.
+ * boot contains the basic files needed to boot the system.
+ * patch is a very useful tool in Linux. Many modifications to source code and configuration files are distributed with patch files, as they contain the deltas or changes to go from an old version of a file to the new version of a file.
+ * File extensions in Linux do not necessarily mean that a file is of a certain type.
+ * cp is used to copy files on the local machine, while rsync can also be used to copy files from one machine to another, as well as synchronize contents.
+ * gzip, bzip2, xz and zip are used to compress files.
+ * tar allows you to create or extract files from an archive file, often called a tarball. You can optionally compress while creating the archive, and decompress while extracting its contents.
+ * dd can be used to make large exact copies, even of entire disk partitions, efficiently.
+
+
+
