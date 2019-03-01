@@ -79,3 +79,60 @@ Stream editor.
 The -e command option allows you to specify multiple editing commands simultaneously at the command line. It is unnecessary if you only have one operation invoked.
 
 `sed -f scriptfile <filename>` Specify a scriptfile containing sed commands, operate on file and put output on standard out
+```sh
+sed s/pattern/replace_string file # Substitute first string occurence in very line 
+sed s/pattern/replace_string/g file # Substitute all occurence in very line
+sed 1,3s/pattern/replace_string/g file # Substitute all string occurence in a range of lines
+sed -i s/pattern/replace_string/g file # save changes in the same files
+```
+`-i` option is **irreversible**, use 
+`sed s/pattern/replace_string/g file1 > file2` instead.
+
+Example: To convert 01/02/… to JAN/FEB/…
+```sh
+sed -e 's/01/JAN/' -e 's/02/FEB/' -e 's/03/MAR/' -e 's/04/APR/' -e 's/05/MAY/' \
+    -e 's/06/JUN/' -e 's/07/JUL/' -e 's/08/AUG/' -e 's/09/SEP/' -e 's/10/OCT/' \
+    -e 's/11/NOV/' -e 's/12/DEC/'
+```
+
+## awk 
+
+**awk** is used to extract and then print specific contents of a file and is often used to construct reports. t was created at Bell Labs in the 1970s and derived its name from the last names of its authors: Alfred Aho, Peter Weinberger, and Brian Kernighan.
+As `sed`, `awk` can be use simply with command line in prompt but for more cpmplex task, use `-f` option to specify a script.
+
+```sh
+awk '{ print $0 }' /etc/passwd  # Print entire file
+awk -F: '{ print $1 }' /etc/passwd #Print first field (column) of every line, separated by a space
+awk -F: '{ print $1 $7 }' /etc/passwd # Print first and seventh field of every line
+```
+
+## sort
+
+`sort` is used to rearrange the lines of a text fil either in ascending or descending order, according to a sort key.
+
+```sh
+flo@flo-X301A:~/git/learnNewThingsEveryday/Linux$ sort test_sort.txt 
+line 1 plop
+line 2 plop
+line 3 plip
+line 4 plup
+flo@flo-X301A:~/git/learnNewThingsEveryday/Linux$ sort -r test_sort.txt 
+line 4 plup
+line 3 plip
+line 2 plop
+line 1 plop
+flo@flo-X301A:~/git/learnNewThingsEveryday/Linux$ sort -k3 test_sort.txt 
+line 3 plip
+line 1 plop
+line 2 plop
+line 4 plup
+```
+
+with `-u` option, `sort` checks for unique values after sorting the records (lines). It is equivalent to running `uniq` on the output of sort
+
+## uniq
+
+`uniq` removes duplicate consecutive lines in a text file and is useful for simplifying the text display.
+`uniq` requires that the **duplicate entries must be consecutive**, one often runs `sort` first and then pipes the output into `uniq`; if `sort` is used with the `-u` option, it can do all this in one step.
+
+## paste
