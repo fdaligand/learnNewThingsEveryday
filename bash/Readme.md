@@ -1,6 +1,10 @@
 # Bash Reference Manual
 > Bourne Against Shell, written by Stephane Bourne
 
+## Usefull ressources:
+ * [the-art-of-command-line](https://github.com/jlevy/the-art-of-command-line/blob/master/README-fr.md)
+ * [Better shell script](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
+
 ## Basic Shell Features
 ### Shell Operation 
  1. Read the inputs
