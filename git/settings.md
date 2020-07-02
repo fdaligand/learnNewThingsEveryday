@@ -1,6 +1,6 @@
 # General 
 
-* [HGow to contribute to a git project](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project)
+* [How to contribute to a git project](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project)
 * Learn git in a [visual way](https://learngitbranching.js.org/)
 
 # Basic settings for daily work on GIT 
