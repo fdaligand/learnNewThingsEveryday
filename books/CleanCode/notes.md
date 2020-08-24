@@ -85,8 +85,37 @@ of something, have it change the state of its owning object.
 **Don’t Repeat Yourself(DRY)**: Duplication may be the root of all evil in software.  
 
 ## 4. Comments
-page 53
+> **Don’t comment bad code—rewrite it.**
 
+> Comments are always failures. We must
+have them because we cannot always figure out how to express ourselves without them,
+but their use is not a cause for celebration. 
+
+> Truth can only be found in one place: the code.
+
+**Comments Do Not Make Up for Bad Code** : Clear and expressive code with few comments is far superior to cluttered and complex
+code with lots of comments.  
+### Good comment 
+ * legale comment (CopyRight, Licences, ...)
+ * Informative Comments 
+ * Explanation of intent 
+ * Clarifications 
+ * Warning of consequences
+ * Todo 
+ * Amplification
+ 
+### Bad Comments
+ *  Mumbling
+ * Redundant comments 
+ * Misleading Comments
+ * Mandated Comments
+ * Journal Comments
+ * Noise Comments : They restate the obvious and
+provide no new information. 
+ * Scary Noise
+ 
+ **Don’t Use a Comment When You Can Use a Function or a Variable**
+ page 67
 
 
 
