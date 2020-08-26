@@ -93,6 +93,8 @@ but their use is not a cause for celebration.
 
 > Truth can only be found in one place: the code.
 
+> **Don’t Use a Comment When You Can Use a Function or a Variable**
+
 **Comments Do Not Make Up for Bad Code** : Clear and expressive code with few comments is far superior to cluttered and complex
 code with lots of comments.  
 ### Good comment 
@@ -105,20 +107,59 @@ code with lots of comments.
  * Amplification
  
 ### Bad Comments
- *  Mumbling
+ * Mumbling : Comme,nt by habit or process
  * Redundant comments 
- * Misleading Comments
+ * Misleading Comments : comments
+that isn’t precise enough to be accurate
  * Mandated Comments
  * Journal Comments
  * Noise Comments : They restate the obvious and
 provide no new information. 
  * Scary Noise
+ * Position Markers
+ * Closing Brace Comments : ```} // catch```
+ * Attributions and Bylines : `/* Added by Rick */`
+ * Commented-Out Code
+ * HTML Comments
+ * Nonlocal Information : describe the code that appear near, not systemwide info 
+ * Too Much Information
+ * Inobvious Connection : The connection between a comment and the code it describes should be obvious.
+ * Function Headers : Short functions don’t need much description. A well-chosen name for a small function that
+does one thing is usually better than a comment header.
  
- **Don’t Use a Comment When You Can Use a Function or a Variable**
- page 67
+## 5. Formatting
+  
+> If you are working on a team, then the team should agree to a single set of
+formatting rules and all members should comply.
 
+> Your style and discipline survives, even though your code does not.
 
+> Small files are usually easier to understand than large files are.
+### The Newspaper Metaphor
+We would like a source file to be like a newspaper article.  
+The name should be simple but explanatory.  
+The topmost parts of the source file should provide the high-level concepts and algorithms.
+Detail should increase as we move downward, until at the end we find the lowest level functions and details in the source file.  
 
+> Concepts that are closely related should be kept vertically close to each other
+Vertical Openness Between Concepts
+
+Key Concepts:
+
+* Vertical Openness Between Concepts
+* Vertical Density : lines of code that are tightly related  should appear vertically dense.
+* Vertical distance : Concepts that are closely related should be kept vertically close to each other
+* Variable Declarations : Variables should be declared as close to their usage as possi-
+ble.
+* Instance variables:should be declared at the top of the class.
+* Dependent Functions: If one function calls another, they should be vertically close,
+and the caller should be above the callee, if at all possible.
+* Vertical Ordering: In general we want function call dependencies to point in the downward direction. That is,
+a function that is called should be below a function that does the calling 
+
+## 6. Objects and Data Structures
+
+p93 (124)
 
 ### Vocabulaire 
 
@@ -127,6 +168,6 @@ provide no new information.
 * impediments (obstacle, barrier)
 * colloquialisms (familliar)
 * pun = jeux de mots 
-
+* neatness = cleanness, cleanliness
 ### Go Further 
  * Agile Software Development: Principles, Patterns, and Practices (PPP)
