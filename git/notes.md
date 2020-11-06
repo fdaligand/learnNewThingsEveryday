@@ -7,3 +7,6 @@
 ## Hooks 
 
 * [Force brnach naming policy via hook](https://itnext.io/using-git-hooks-to-enforce-branch-naming-policy-ffd81fa01e5e)
+
+## Build you own Git
+* [mGit](https://www.leshenko.net/p/ugit/#)
