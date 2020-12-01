@@ -1,5 +1,8 @@
 # Python related reading notes 
 
+## Type check
+ * [Python type checking tools](https://testdriven.io/blog/python-type-checking/)
+
 
 ## HTTP
 
