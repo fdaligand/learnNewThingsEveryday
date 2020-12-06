@@ -159,8 +159,26 @@ a function that is called should be below a function that does the calling
 
 ## 6. Objects and Data Structures
 
-p93 (124)
+>Serious thought needs
+to be put into the best way to represent the data that an object contains. The worst option is
+to blithely add getters and setters.  
+> Objects hide
+their data behind abstractions and expose functions that operate on that data. Data struc-
+ture expose their data and have no meaningful functions.
 
+__The law of demeter__ (talk to friend, not ot stranger) 
+
+## 7. Error handling
+
+* Use Exceptions Rather Than Return Codes
+* Write Your Try-Catch-Finally Statement First
+    - it is good practice to
+start with a try - catch - finally statement when you are writing code that could throw
+exceptions.
+    - Try to write tests that force exceptions, and then add behavior to your handler to sat-
+isfy your tests. This will cause you to build the transaction scope of the try block first and
+will help you maintain the transaction nature of that scope.
+* Provide Context with Exceptions
 ### Vocabulaire 
 
 * painstackingly = laborieusement 
