@@ -179,6 +179,12 @@ exceptions.
 isfy your tests. This will cause you to build the transaction scope of the try block first and
 will help you maintain the transaction nature of that scope.
 * Provide Context with Exceptions
+* Don't return Null : If you are tempted to return null from
+a method, consider throwing an exception or returning a S PECIAL C ASE object instead.  
+* Don't pass Null
+
+## 8. Boundaries
+
 ### Vocabulaire 
 
 * painstackingly = laborieusement 
