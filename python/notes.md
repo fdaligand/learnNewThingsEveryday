@@ -7,3 +7,8 @@
 ## HTTP
 
 * [requests adavanced usage](https://findwork.dev/blog/advanced-usage-python-requests-timeouts-retries-hooks/)
+
+
+## Packaging
+
+* [Packaging Tips](https://jwodder.github.io/kbits/posts/pypkg-mistakes/)
